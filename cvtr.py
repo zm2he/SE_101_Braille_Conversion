@@ -6,6 +6,19 @@ def key_convert (num):
         i+=1
     return i
 
+def print_braille(letter):
+    for x in range(3):
+        row = ""
+        if letter[x*2] == 1:
+            row += "*"
+        else:
+            row += "o"
+        if letter[x*2 + 1] == 1:
+            row += "*"
+        else:
+            row += "o"
+        print(row)
+
 # Function accepts a 6-element array representing a braille character and returns its corresponding character
 # it does this by comparing the array with the given letter codes stored in an 2D array. The index of the corresponding
 # code matches to the index of the character on a 1D array of letters; that string is returned
@@ -33,7 +46,7 @@ def comparison (character):
             position = i
             found = 1
             break
-        i += 1
+        i += 1 #find a better sort/search function
     return letters[position]
 
 # Function that allows use to input one braille character
@@ -50,13 +63,25 @@ def input_letter():
             keypad_input = int(input())
     return comparison(letter_arr)
 
-#def input_word ()
-#   word = ""
-#   while :
-#       word += input_letter()
-#   return word
+# Function that allows user to input a braille word
+def input_word():
+    word = ""
+    command = 0
+    while command != 9: # if 9 is pressed after letter entry, leave, else press a non -9 key
+        word += input_letter()
+        command = int(input())
+    return word
 
-#print("Enter your name:")
-#x = input();
-#print("Hello" + x)
-#print(input_letter())
+# Function that allows user to input a braille sentence
+def input_sentence():
+    sentence = ""
+    command = 0
+    while command != 3: # if 93is pressed after word entry, leave, else press a non -9 key
+        word = input_word()
+        sentence += word
+        print(word)
+        command = int(input())
+        sentence += " "
+    return sentence
+
+print(input_sentence())
