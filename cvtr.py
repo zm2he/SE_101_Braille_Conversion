@@ -1,3 +1,11 @@
+from espeak import espeak
+import os
+#import subprocess if you want to use the last thing
+
+#       Braille to Text
+
+
+
 letter_codes = [[1, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0],
                 [1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0], [1, 0, 1, 1, 0, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 1, 0, 0],
                 [1, 0, 0, 0, 1, 0], [1, 0, 1, 0, 1, 0], [1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0], [1, 0, 0, 1, 1, 0],
@@ -27,10 +35,8 @@ def key_convert (num):
         place = -1
     return place
 
-    #i = 0
-    #while i <6 and key_position[i] != num:
-        #i+=1
-    #return i
+
+
 
 # Function accepts a 6-element array representing a braille character and returns its corresponding character
 # it does this by comparing the array with the given letter codes stored in an 2D array. The index of the corresponding
@@ -109,4 +115,18 @@ def twoplus():
 #print("Enter your name:")
 #x = input();
 #print("Hello" + x)
-print(input_sentence())
+#print(input_sentence())
+
+
+
+
+
+#       Text to Speech
+def text_to_speech ():
+    teststring = input_sentence()
+    os.system('espeak -ven+f3 -k5 -s 80 "{}"'.format(teststring))
+
+    #           OR
+
+#p = subprocess.Popen(['espeak', teststring])
+text_to_speech()
