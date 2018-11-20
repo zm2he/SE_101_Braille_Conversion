@@ -1,11 +1,3 @@
-from espeak import espeak
-import os
-#import subprocess if you want to use the last thing
-
-#       Braille to Text
-
-
-
 letter_codes = [[1, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0],
                 [1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0], [1, 0, 1, 1, 0, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 1, 0, 0],
                 [1, 0, 0, 0, 1, 0], [1, 0, 1, 0, 1, 0], [1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0], [1, 0, 0, 1, 1, 0],
@@ -35,8 +27,10 @@ def key_convert (num):
         place = -1
     return place
 
-
-
+    #i = 0
+    #while i <6 and key_position[i] != num:
+        #i+=1
+    #return i
 
 # Function accepts a 6-element array representing a braille character and returns its corresponding character
 # it does this by comparing the array with the given letter codes stored in an 2D array. The index of the corresponding
@@ -61,6 +55,18 @@ def comparison (character):
         #print(letter_codes[position][0], letter_codes[position][1], letter_codes[position][3], letter_codes[position][3], letter_codes[position][4], letter_codes[position][5])
     return letters[position]
 
+def reverse_compare(character):
+    i = 0
+    found = 0
+    position = 0
+    while i < 26 and found == 0:
+        if character == letters[i]:
+            position = i
+            found = 1
+            break
+        i += 1
+        #print(letter_codes[position][0], letter_codes[position][1], letter_codes[position][3], letter_codes[position][3], letter_codes[position][4], letter_codes[position][5])
+    return letter_codes[position]
 
 # Function that allows use to input one braille character
 def input_letter():
@@ -106,6 +112,20 @@ def twoplus():
     print(plus_one(int(input())))
     print(plus_one(int(input())))
 
+def print_braille(letter):
+    for x in range(3):
+        row = ""
+        if letter[x*2] == 1:
+            row += "*"
+        else:
+            row += "o"
+        if letter[x*2 + 1] == 1:
+            row += "*"
+        else:
+            row += "o"
+        print(row)
+
+
 #def input_word ()
 #   word = ""
 #   while :
@@ -115,18 +135,4 @@ def twoplus():
 #print("Enter your name:")
 #x = input();
 #print("Hello" + x)
-#print(input_sentence())
-
-
-
-
-
-#       Text to Speech
-def text_to_speech ():
-    teststring = input_sentence()
-    os.system('espeak -ven+f3 -k5 -s 80 "{}"'.format(teststring))
-
-    #           OR
-
-#p = subprocess.Popen(['espeak', teststring])
-text_to_speech()
+print(print_braille(reverse_compare("b")))

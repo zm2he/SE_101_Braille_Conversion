@@ -54,12 +54,13 @@ def input_letter():
             convert_spot = key_convert(keypad_input)
             print(convert_spot)
             letter_arr[convert_spot] = 1
-            print(letter_arr[0], letter_arr[1], letter_arr[3], letter_arr[3], letter_arr[4], letter_arr[5])
+            print(letter_arr[0], letter_arr[1], letter_arr[2], letter_arr[3], letter_arr[4], letter_arr[5])
+            print(letter_arr[2])
             max_points = max_points - 1
         if max_points > 0:
             keypad_input = int(input())
-    print(letter_arr[0], letter_arr[1], letter_arr[3], letter_arr[3],letter_arr[4],letter_arr[5])
-    print()
+    print(letter_arr[0], letter_arr[1], letter_arr[2], letter_arr[3],letter_arr[4],letter_arr[5])
+    print(comparison(letter_arr))
     letter_arr = [0, 0, 0, 0, 0, 0]
     return comparison(letter_arr)
 
