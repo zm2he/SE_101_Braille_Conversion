@@ -1,10 +1,14 @@
 import RPi.GPIO as GPIO
 import time
 
+test_array = [0, 0, 0, 0, 0, 0]
+
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-#GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(12, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(15, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 """
 while True: # Run forever
     if GPIO.input(11) == GPIO.HIGH:
@@ -44,7 +48,7 @@ while True:
 # this is an endless for loop.
 
 """
-
+"""
 prev_input = GPIO.LOW
 input = GPIO.input(11)
 while (prev_input ==GPIO.LOW and input != GPIO.HIGH):
@@ -54,3 +58,35 @@ while (prev_input ==GPIO.LOW and input != GPIO.HIGH):
     prev_input = input
     time.sleep(0.05)
 print("Test Successful")
+
+"""
+
+def reader():
+    p_inpt = [GPIO.LOW, GPIO.LOW, GPIO.LOW, GPIO.LOW]
+    inpt = [GPIO.input(11), GPIO.input(12), GPIO.input(13), GPIO.input(15)]
+    press = 0
+    press_num = -1
+
+    for x in range(4):
+        if p_inpt[x] == GPIO.LOW and inpt[x] == GPIO.HIGH:
+            press = 1
+            press_num = x
+
+    while press == 0:
+        inpt = [GPIO.input(11), GPIO.input(12), GPIO.input(13), GPIO.input(15)]
+        for x in range(4):
+            if p_inpt[x] == GPIO.LOW and inpt[x] == GPIO.HIGH:
+                press = 1
+                press_num = x
+        if press != 0:
+            print(press_num+"button pressed")
+        p_inpt = input
+        time.sleep(0.05)
+
+    return press_num
+
+def perp_reader():
+    resultant = -1;
+    while resultant != 3:
+        resultant = reader()
+        print(resultant)
