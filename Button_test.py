@@ -48,18 +48,17 @@ while True:
 # this is an endless for loop.
 
 """
-"""
-prev_input = GPIO.LOW
-input = GPIO.input(11)
-while (prev_input ==GPIO.LOW and input != GPIO.HIGH):
+
+def single_test() :
+    prev_input = GPIO.LOW
     input = GPIO.input(11)
-    if ((not prev_input) and input):
-        print("button pressed")
+    while (prev_input ==GPIO.LOW and input != GPIO.HIGH):
+        input = GPIO.input(11)
+        if prev_input == GPIO.LOW and input != GPIO.HIGH:
+            print("button pressed")
     prev_input = input
     time.sleep(0.05)
-print("Test Successful")
-
-"""
+    print("Test Successful")
 
 def reader():
     p_inpt = [GPIO.LOW, GPIO.LOW, GPIO.LOW, GPIO.LOW]
@@ -89,4 +88,9 @@ def perp_reader():
     resultant = -1;
     while resultant != 3:
         resultant = reader()
+        test_array[resultant] = 1
         print(resultant)
+    for x in test_array:
+        print(x)
+
+single_reader()
