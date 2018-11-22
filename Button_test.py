@@ -54,7 +54,7 @@ def single_test() :
     input = GPIO.input(11)
     while (prev_input ==GPIO.LOW and input != GPIO.HIGH):
         input = GPIO.input(11)
-        if prev_input == GPIO.LOW and input != GPIO.HIGH:
+        if prev_input == GPIO.LOW and input == GPIO.HIGH:
             print("button pressed")
     prev_input = input
     time.sleep(0.05)
@@ -62,7 +62,7 @@ def single_test() :
 
 def reader():
     p_inpt = [GPIO.LOW, GPIO.LOW, GPIO.LOW, GPIO.LOW]
-    inpt = [GPIO.input(11), GPIO.input(12), GPIO.input(13), GPIO.input(15)]
+    inpt = [GPIO.LOW, GPIO.LOW, GPIO.LOW, GPIO.LOW]
     press = 0
     press_num = -1
 
@@ -72,15 +72,25 @@ def reader():
             press_num = x
 
     while press == 0:
-        inpt = [GPIO.input(11), GPIO.input(12), GPIO.input(13), GPIO.input(15)]
+	inpt[0] = GPIO.input(11)
+	inpt[1] = GPIO.input(12)
+	inpt[2] = GPIO.input(13)
+	inpt[3] = GPIO.input(15)
         for x in range(4):
             if p_inpt[x] == GPIO.LOW and inpt[x] == GPIO.HIGH:
                 press = 1
                 press_num = x
-        if press != 0:
-            print(press_num+"button pressed")
-        p_inpt = input
-        time.sleep(0.05)
+        
+	if press != 0:
+            print(press_num)
+	    test_array[press_num] = 1;
+       	p_inpt[0] = inpt[0]
+	p_inpt[1] = inpt[1]
+	p_inpt[2] = inpt[2]
+	p_inpt[3] = inpt[3]
+        
+
+	time.sleep(0.05)
 
     return press_num
 
@@ -93,4 +103,7 @@ def perp_reader():
     for x in test_array:
         print(x)
 
-single_reader()
+perp_reader()
+print("Okay, so let's get started")
+for x in test_array:
+	print(x);
