@@ -25,8 +25,19 @@ sudo apt-get install espeak
 ```
 
 ## Running the tests
+# Running the tests
+Our system currently accepts inputs by push buttons and numerical keypad inputs.
 
-Explain how to run the automated tests for this system
+# Keypad Input
+We have mapped the braille array to the numerical keypad in the following manner:
+```
+7 8
+4 5
+1 2
+```
+
+Each key corresponds to an entry in the braille array. In order to enter a letter, press the corresponding patterns. Use 3 to end a sentence, 9 to end a word, and 6 to end a letter.
+
 
 
 ## Deployment - Online Version
