@@ -1,3 +1,9 @@
+from espeak import espeak
+import os
+
+#       Braille to Text Portion
+
+# Arrays to store letters and corresponding braille codes
 letter_codes = [[1, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0],
                 [1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0], [1, 0, 1, 1, 0, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 1, 0, 0],
                 [1, 0, 0, 0, 1, 0], [1, 0, 1, 0, 1, 0], [1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0], [1, 0, 0, 1, 1, 0],
@@ -6,6 +12,8 @@ letter_codes = [[1, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 
                 [1, 0, 0, 1, 1, 1]]
 letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s",
            "t", "u", "v", "w", "x", "y", "z"]
+
+alphabet_size = 26
 
 # Function accepts a keypad input and returns its corresponding spot on the 6-element array
 def key_convert (num):
@@ -39,7 +47,7 @@ def comparison (character):
     i = 0
     found = 0
     position = 0
-    while i < 26 and found == 0:
+    while i < alphabet_size and found == 0:
         j = 0
         similarity = 1
         while j < 6:
@@ -55,18 +63,6 @@ def comparison (character):
         #print(letter_codes[position][0], letter_codes[position][1], letter_codes[position][3], letter_codes[position][3], letter_codes[position][4], letter_codes[position][5])
     return letters[position]
 
-def reverse_compare(character):
-    i = 0
-    found = 0
-    position = 0
-    while i < 26 and found == 0:
-        if character == letters[i]:
-            position = i
-            found = 1
-            break
-        i += 1
-        #print(letter_codes[position][0], letter_codes[position][1], letter_codes[position][3], letter_codes[position][3], letter_codes[position][4], letter_codes[position][5])
-    return letter_codes[position]
 
 # Function that allows use to input one braille character
 def input_letter():
@@ -84,6 +80,7 @@ def input_letter():
 
     return [comparison(letter_arr),keypad_input]
 
+# Function that allows user to imput word using input_letter
 def input_word():
     word = ""
     command = 0
@@ -93,6 +90,7 @@ def input_word():
         command = i[1]
     return [word, command]
 
+# Function that allows user to input sentence using input_letter
 def input_sentence():
     sentence = ""
     command = 0
@@ -104,35 +102,8 @@ def input_sentence():
         sentence += " "
     return sentence
 
-def plus_one(num):
-    asef = num + 1;
-    return asef;
-
-def twoplus():
-    print(plus_one(int(input())))
-    print(plus_one(int(input())))
-
-def print_braille(letter):
-    for x in range(3):
-        row = ""
-        if letter[x*2] == 1:
-            row += "*"
-        else:
-            row += "o"
-        if letter[x*2 + 1] == 1:
-            row += "*"
-        else:
-            row += "o"
-        print(row)
-
-
-#def input_word ()
-#   word = ""
-#   while :
-#       word += input_letter()
-#   return word
-
-#print("Enter your name:")
-#x = input();
-#print("Hello" + x)
-print(print_braille(reverse_compare("b")))
+#       Text to Speech
+def text_to_speech ():
+    teststring = input_sentence()
+    os.system('espeak -ven+f3 -k5 -s 80 "{}"'.format(teststring))
+text_to_speech()
