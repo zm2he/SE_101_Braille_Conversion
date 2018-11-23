@@ -56,27 +56,6 @@ def input_letter():
             keypad_input = int(raw_input())
     return comparison(letter_arr)
 
-#def input_word ()
-#   word = ""
-#   while :
-#       word += input_letter()
-#   return word
-
-#print("Enter your name:")
-#x = input();
-#print("Hello" + x)
-#print(input_letter())
-
-
-
-
-
-
-
-
-
-
-
 
 #       Text to Speech
 def text_to_speech ():

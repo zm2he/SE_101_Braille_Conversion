@@ -55,7 +55,7 @@ def reader():
         # fill test array
         if press != 0:
             print(press_num)
-        test_array[press_num] = 1
+            test_array[press_num] = 1
 
         # set previous inputs
         p_inpt[0] = inpt[0]

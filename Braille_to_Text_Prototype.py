@@ -1,3 +1,5 @@
+""" Prototype version of braille-to-text conversion"""
+""" Alphabet arrays"""
 letter_codes = [[1, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0],
                 [1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0], [1, 0, 1, 1, 0, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 1, 0, 0],
                 [1, 0, 0, 0, 1, 0], [1, 0, 1, 0, 1, 0], [1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0], [1, 0, 0, 1, 1, 0],
@@ -27,6 +29,7 @@ def key_convert (num):
         place = -1
     return place
 
+    #discarded old key_convert code
     #i = 0
     #while i <6 and key_position[i] != num:
         #i+=1
@@ -53,11 +56,13 @@ def comparison (character):
             break
         i += 1
         #print(letter_codes[position][0], letter_codes[position][1], letter_codes[position][3], letter_codes[position][3], letter_codes[position][4], letter_codes[position][5])
-    if (found == 0):
+    if found == 0: # errorproofing in case there is no match
         return ""
     else:
         return letters[position]
 
+# function to convert alphabet letters into arrays representing braille characters
+# intended for a speech-to-braille converter
 def reverse_compare(character):
     i = 0
     found = 0
@@ -87,19 +92,21 @@ def input_letter():
 
     return [comparison(letter_arr),keypad_input]
 
+# Function that allows user to input one word
 def input_word():
     word = ""
     command = 0
-    while (command != 9 and command != 3):
+    while command != 9 and command != 3:
         i = input_letter()
         word += i[0]
         command = i[1]
     return [word, command]
 
+# Function that allows user to input one sentence
 def input_sentence():
     sentence = ""
     command = 0
-    while command != 3: # if 93is pressed after word entry, leave, else press a non -9 key
+    while command != 3: # if 3 is pressed after word entry, leave, else press a non 3 key
         i = input_word()
         sentence += i[0]
         print(i[0])
@@ -107,14 +114,7 @@ def input_sentence():
         sentence += " "
     return sentence
 
-def plus_one(num):
-    asef = num + 1;
-    return asef;
-
-def twoplus():
-    print(plus_one(int(input())))
-    print(plus_one(int(input())))
-
+# Function to display braille on screen as an actual 2x3 array
 def print_braille(letter):
     for x in range(3):
         row = ""
@@ -128,13 +128,5 @@ def print_braille(letter):
             row += "o"
         print(row)
 
-#def input_word ()
-#   word = ""
-#   while :
-#       word += input_letter()
-#   return word
-
-#print("Enter your name:")
-#x = input();
-#print("Hello" + x)
+# Print converted braille for testing purposes
 print(print_braille(reverse_compare("b")))

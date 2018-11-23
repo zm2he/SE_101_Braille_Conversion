@@ -1,7 +1,6 @@
+// Testing code for CMUSphinx speech-to-text API. Still have not figured out how to execute it.
 #include <pocketsphinx.h>
-
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	ps_decoder_t *ps;
 	cmd_ln_t *config;

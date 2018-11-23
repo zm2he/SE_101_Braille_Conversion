@@ -1,9 +1,8 @@
+# espeak imports
 from espeak import espeak
 import os
 
-#       Braille to Text Portion
-
-# Arrays to store letters and corresponding braille codes
+# Global variables for storing alphabet, corresponding braille codes, and length of arrays
 letter_codes = [[1, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0], [1, 1, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0],
                 [1, 1, 1, 0, 0, 0], [1, 1, 1, 1, 0, 0], [1, 0, 1, 1, 0, 0], [0, 1, 1, 0, 0, 0], [0, 1, 1, 1, 0, 0],
                 [1, 0, 0, 0, 1, 0], [1, 0, 1, 0, 1, 0], [1, 1, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0], [1, 0, 0, 1, 1, 0],
@@ -15,9 +14,23 @@ letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
 
 alphabet_size = 26
 
-# Function accepts a keypad input and returns its corresponding spot on the 6-element array
+""" BRAILLE TO TEXT """
+""" Braille is represented as [0, 1, 2, 3, 4, 5] which is 
+[0 1
+2 3
+4 5]
+
+or on the keypad
+[7 8
+4 5
+1 2]
+"""
+""" Note that for input on the numeric keypad, "enter" must be pressed after every key is pressed. In order to end a 
+letter, press 6. In order to end a word, press 9. In order to end a sentence, press 3."""
+
+# Function which maps keys to spots on the braille array representation
 def key_convert (num):
-    key_position = [7,8,4,5,1,2]
+    key_position = [7, 8, 4, 5, 1, 2]
     place = -1
     if num == 7:
         place = 0
@@ -35,14 +48,8 @@ def key_convert (num):
         place = -1
     return place
 
-    #i = 0
-    #while i <6 and key_position[i] != num:
-        #i+=1
-    #return i
-
-# Function accepts a 6-element array representing a braille character and returns its corresponding character
-# it does this by comparing the array with the given letter codes stored in an 2D array. The index of the corresponding
-# code matches to the index of the character on a 1D array of letters; that string is returned
+# Function accepts a braille character array and returns its matching alphabetic character
+# returns a zero-length string if a matching letter is not found
 def comparison (character):
     i = 0
     found = 0
@@ -60,41 +67,41 @@ def comparison (character):
             found = 1
             break
         i += 1
-        #print(letter_codes[position][0], letter_codes[position][1], letter_codes[position][3], letter_codes[position][3], letter_codes[position][4], letter_codes[position][5])
-    return letters[position]
+
+    if similarity == 0:
+        return ""
+    else:
+        return letters[position]
 
 
-# Function that allows use to input one braille character
+# Function that allows use to input one braille character using the keypad
 def input_letter():
     letter_arr = [0, 0, 0, 0, 0, 0]
-    max_points = 6
     keypad_input = int(input())
-    while max_points > 0 and keypad_input != 6 and keypad_input != 9 and keypad_input !=3:
+    while keypad_input != 6 and keypad_input != 9 and keypad_input !=3: # press 6 to exit letter
         if keypad_input != 9 and keypad_input != 3 and keypad_input != 0:
-#            print(key_convert(keypad_input))
-            letter_arr[key_convert(keypad_input)] = 1
-            print(key_convert(keypad_input))
-            max_points -= 1
-        if max_points > 0:
+            conversion = key_convert(keypad_input)
+            if conversion >= 0:
+                letter_arr[key_convert(keypad_input)] = 1
             keypad_input = int(input())
 
     return [comparison(letter_arr),keypad_input]
 
-# Function that allows user to imput word using input_letter
+# Function that allows user to input word using input_letter()
 def input_word():
     word = ""
     command = 0
-    while (command != 9 and command != 3):
+    while (command != 9 and command != 3): # press 9 to exit word
         i = input_letter()
         word += i[0]
         command = i[1]
     return [word, command]
 
-# Function that allows user to input sentence using input_letter
+# Function that allows user to input sentence using input_word()
 def input_sentence():
     sentence = ""
     command = 0
-    while command != 3: # if 93is pressed after word entry, leave, else press a non -9 key
+    while command != 3: # if press 3 to exit sentence
         i = input_word()
         sentence += i[0]
         print(i[0])
