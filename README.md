@@ -25,7 +25,6 @@ sudo apt-get install espeak
 ```
 
 ## Running the tests
-# Running the tests
 Our system currently accepts inputs by push buttons and numerical keypad inputs.
 
 # Keypad Input
