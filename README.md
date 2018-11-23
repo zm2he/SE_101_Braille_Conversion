@@ -27,7 +27,7 @@ sudo apt-get install espeak
 ## Running the tests
 Our system currently accepts inputs by push buttons and numerical keypad inputs.
 
-# Keypad Input
+### Keypad Input
 We have mapped the braille array to the numerical keypad in the following manner:
 ```
 7 8
