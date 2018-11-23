@@ -14,10 +14,17 @@ Real-time Braille to Speech Converter - To allow blind and deaf people to live a
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+
+Getting Alsa ready
+```
+sudo apt-get install alsa-utils
+sudo amixer cset numid=0
+sudo amixer cset numid=1
 
 ```
-Give the example
+Getting Espeak
+```
+sudo apt-get install espeak
 ```
 
 And repeat
