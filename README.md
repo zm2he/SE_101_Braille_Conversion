@@ -20,7 +20,6 @@ Getting Alsa ready
 sudo apt-get install alsa-utils
 sudo amixer cset numid=0
 sudo amixer cset numid=1
-
 ```
 Getting Espeak
 ```
