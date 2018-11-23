@@ -41,7 +41,7 @@ To deploy this code on a server, we tried Google Cloud Platform for their Text-t
 * Espeak - Offline Text to Speech api
 * Alsa - Sound Management System
 * Raspberry Pi - as the main controller
-
+* Python 2
 
 
 ## Authors
