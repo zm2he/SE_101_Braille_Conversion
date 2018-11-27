@@ -41,7 +41,7 @@ def button_reader():
     press = 0
     press_num = -1
 
-    for x in range(4):
+    for x in range(9):
         if p_inpt[x] == GPIO.LOW and inpt[x] == GPIO.HIGH:
             press = 1
             press_num = x
@@ -51,7 +51,12 @@ def button_reader():
         inpt[1] = GPIO.input(12)
         inpt[2] = GPIO.input(13)
         inpt[3] = GPIO.input(15)
-        for x in range(4):
+        inpt[4] = GPIO.input(16)
+        inpt[5] = GPIO.input(18)
+        inpt[6] = GPIO.input(22)
+        inpt[7] = GPIO.input(29)
+        inpt[8] = GPIO.input(31)
+        for x in range(9):
             if p_inpt[x] == GPIO.LOW and inpt[x] == GPIO.HIGH:
                 press = 1
                 press_num = x
@@ -62,7 +67,12 @@ def button_reader():
         p_inpt[1] = inpt[1]
         p_inpt[2] = inpt[2]
         p_inpt[3] = inpt[3]
-        time.sleep(0.05)
+        p_inpt[4] = inpt[4]
+        p_inpt[5] = inpt[5]
+        p_inpt[6] = inpt[6]
+        p_inpt[7] = inpt[7]
+        p_inpt[8] = inpt[8]
+        time.sleep(0.10)
 
     return press_num
 
@@ -125,7 +135,7 @@ def input_sentence():
         sentence += i[0]
         print(i[0])
         command = i[1]
-        if command == 8:
+        if command == 7:
             sentence += " "
     print(sentence)
     return sentence
